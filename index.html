@@ -2984,6 +2984,40 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
 }
 </style>
 
+
+<style id="v43-full-width-layout">
+/* Use the iframe canvas more fully while retaining a small safety gutter. */
+.page{
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding-left:14px !important;
+  padding-right:14px !important;
+  padding-top:5px !important;
+  padding-bottom:5px !important;
+}
+
+/* Keep section/card content comfortably padded internally. */
+.hero-map-card,
+.key-sections,
+.key-findings-section,
+.interactive,
+.country-spotlight,
+.full-rankings,
+#methodology,
+.full-data-access{
+  width:100% !important;
+  max-width:none !important;
+}
+
+@media (max-width:700px){
+  .page{
+    padding-left:10px !important;
+    padding-right:10px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <main class="page">
