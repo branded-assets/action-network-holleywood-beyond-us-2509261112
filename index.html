@@ -3301,6 +3301,192 @@ body{
 }
 </style>
 
+
+<style id="v45-responsive-trend-chart">
+/* Let the annual trend chart fit the available width instead of creating an inner horizontal scroller. */
+.trend-scroll{
+  width:100% !important;
+  max-width:100% !important;
+  overflow-x:hidden !important;
+  padding-bottom:0 !important;
+}
+
+#trendChart{
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  height:auto !important;
+}
+
+.trend-axis-label{
+  font-size:14px !important;
+}
+
+/* Legend can wrap naturally underneath rather than forcing chart width. */
+.trend-legend{
+  width:100% !important;
+  max-width:100% !important;
+  flex-wrap:wrap !important;
+}
+
+@media (max-width:620px){
+  .trend-axis-label{
+    font-size:13.5px !important;
+  }
+}
+</style>
+
+
+<style id="v46-five-country-legend">
+/* Keep the trend legend orderly: never show more than five countries on one row. */
+.trend-legend{
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:8px !important;
+  width:100% !important;
+  max-width:100% !important;
+}
+
+.trend-key{
+  width:100% !important;
+  min-width:0 !important;
+  justify-content:flex-start !important;
+  overflow:hidden;
+}
+
+.trend-key span:last-child{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Fewer columns are allowed on smaller screens, but never more than five. */
+@media (max-width:900px){
+  .trend-legend{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }
+}
+
+@media (max-width:560px){
+  .trend-legend{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+</style>
+
+
+<style id="v47-five-per-row-always">
+/* Always keep exactly five country legend boxes per row.
+   The boxes themselves flex to the available width. */
+.trend-legend{
+  display:grid !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:8px !important;
+  width:100% !important;
+  max-width:100% !important;
+}
+
+.trend-key{
+  width:100% !important;
+  min-width:0 !important;
+  justify-content:flex-start !important;
+  padding:8px 9px !important;
+  gap:6px !important;
+  overflow:hidden !important;
+}
+
+.trend-key span:last-child{
+  min-width:0 !important;
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  line-height:1.15 !important;
+}
+
+/* On narrower screens, keep five columns but tighten the boxes slightly. */
+@media (max-width:900px){
+  .trend-legend{
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:6px !important;
+  }
+  .trend-key{
+    padding:7px 6px !important;
+    gap:5px !important;
+    font-size:12px !important;
+  }
+  .trend-swatch{
+    width:17px !important;
+    flex-basis:17px !important;
+  }
+}
+
+@media (max-width:560px){
+  .trend-legend{
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:4px !important;
+  }
+  .trend-key{
+    padding:6px 4px !important;
+    gap:4px !important;
+    font-size:10px !important;
+  }
+  .trend-swatch{
+    width:12px !important;
+    flex-basis:12px !important;
+  }
+}
+</style>
+
+
+<style id="v48-heading-stack">
+/* Keep Top 10 and yearly-trend headers in the same two-line structure at every width:
+   title first, subtitle directly underneath. */
+.rank-head,
+.trend-head{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:flex-start !important;
+  gap:7px !important;
+  width:100% !important;
+  margin-bottom:16px !important;
+}
+
+.rank-head h3,
+.trend-head h3{
+  display:block !important;
+  width:100% !important;
+  margin:0 !important;
+  text-align:left !important;
+}
+
+.rank-head span,
+.trend-head span{
+  display:block !important;
+  width:100% !important;
+  margin:0 !important;
+  text-align:left !important;
+  max-width:none !important;
+}
+
+/* Preserve the same hierarchy on smaller screens rather than switching layouts. */
+@media (max-width:700px){
+  .rank-head,
+  .trend-head{
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:6px !important;
+  }
+
+  .rank-head span,
+  .trend-head span{
+    text-align:left !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <main class="page">
@@ -4294,7 +4480,12 @@ function renderTrend(){
   if(maxVal<=0) maxVal=1;
 
 
-  const W=1000,H=440,m={l:78,r:26,t:24,b:54};
+  const trendWrap=svg.closest('.trend-scroll');
+  const availableWidth=Math.round((trendWrap&&trendWrap.clientWidth)||svg.clientWidth||1000);
+  const W=Math.max(320,availableWidth);
+  const H=440;
+  const m=W<620?{l:64,r:16,t:24,b:54}:W<820?{l:70,r:20,t:24,b:54}:{l:78,r:26,t:24,b:54};
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
   const cw=W-m.l-m.r,ch=H-m.t-m.b;
   const x=year=>m.l+((year-2010)/(2026-2010))*cw;
   const isOverallRank=state.metric==='overall';
@@ -4312,8 +4503,10 @@ function renderTrend(){
     parts.push(`<text class="trend-axis-label" x="${m.l-12}" y="${yy+4}" text-anchor="end">${trendValueLabel(v)}</text>`);
   }
   parts.push(`<line class="trend-axis" x1="${m.l}" y1="${m.t+ch}" x2="${W-m.r}" y2="${m.t+ch}"></line>`);
+  const yearStep=W<620?4:2;
   for(const yr of trendYears){
-    if(yr%2!==0 && yr!==2026) continue;
+    const isEdge=yr===2010||yr===2026;
+    if(!isEdge && ((yr-2010)%yearStep!==0)) continue;
     const xx=x(yr);
     parts.push(`<text class="trend-axis-label" x="${xx}" y="${H-22}" text-anchor="middle">${yr===2026?'2026*':yr}</text>`);
   }
@@ -4680,6 +4873,22 @@ function setExplorerView(view){
 }
 top10Tab.addEventListener('click',()=>setExplorerView('top10'));
 trendTab.addEventListener('click',()=>setExplorerView('trend'));
+
+let lastTrendWidth=0;
+let trendResizeFrame=0;
+const trendScroll=document.querySelector('.trend-scroll');
+if(trendScroll && 'ResizeObserver' in window){
+  const trendResizeObserver=new ResizeObserver(entries=>{
+    const width=Math.round(entries[0]?.contentRect?.width||0);
+    if(!width || Math.abs(width-lastTrendWidth)<2) return;
+    lastTrendWidth=width;
+    cancelAnimationFrame(trendResizeFrame);
+    trendResizeFrame=requestAnimationFrame(()=>{
+      if(trendPanel && !trendPanel.hidden) renderTrend();
+    });
+  });
+  trendResizeObserver.observe(trendScroll);
+}
 
 
 const metricSelect=document.getElementById('metricSelect');
