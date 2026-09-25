@@ -2563,6 +2563,210 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
 }
 </style>
 
+
+<style>
+/* Country profile: make genre box-office values easier to read without changing $ / B formatting. */
+.country-genre-value{
+  font-size:16px !important;
+  font-weight:800 !important;
+}
+
+/* Desktop full rankings: use the available width more efficiently so all four columns stay visible. */
+@media (min-width:701px){
+  .full-table-scroll{
+    overflow-x:hidden !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
+  }
+  .full-table{
+    width:100% !important;
+    min-width:0 !important;
+    table-layout:fixed !important;
+  }
+  .full-table th:nth-child(1),
+  .full-table td:nth-child(1){
+    width:8% !important;
+  }
+  .full-table th:nth-child(2),
+  .full-table td:nth-child(2){
+    width:28% !important;
+    min-width:0 !important;
+  }
+  .full-table th:nth-child(3),
+  .full-table td:nth-child(3){
+    width:34% !important;
+  }
+  .full-table th:nth-child(4),
+  .full-table td:nth-child(4){
+    width:30% !important;
+  }
+  .full-table th,
+  .full-table td{
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+  .full-table td:nth-child(2){
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+}
+</style>
+
+
+<style id="v37-visible-table-fit">
+/* Make the Country Spotlight genre values clearly larger while retaining $xx.xB formatting. */
+.country-genre-row{
+  grid-template-columns:minmax(150px,210px) minmax(0,1fr) 96px !important;
+}
+.country-genre-value{
+  font-size:18px !important;
+  line-height:1 !important;
+  font-weight:850 !important;
+  letter-spacing:-.01em;
+}
+
+/* Explicit desktop column proportions for the four-column rankings table. */
+@media (min-width:701px){
+  .full-rankings .full-table-scroll{
+    width:100% !important;
+    overflow-x:hidden !important;
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+  .full-rankings .full-table{
+    width:100% !important;
+    min-width:0 !important;
+    table-layout:fixed !important;
+  }
+
+  .full-table-cols .col-rank{width:7% !important}
+  .full-table-cols .col-country{width:25% !important}
+  .full-table-cols .col-box{width:34% !important}
+  .full-table-cols .col-films{width:34% !important}
+
+  .full-rankings .full-table th:nth-child(1),
+  .full-rankings .full-table td:nth-child(1){width:7% !important}
+
+  .full-rankings .full-table th:nth-child(2),
+  .full-rankings .full-table td:nth-child(2){
+    width:25% !important;
+    min-width:0 !important;
+  }
+
+  .full-rankings .full-table th:nth-child(3),
+  .full-rankings .full-table td:nth-child(3){width:34% !important}
+
+  .full-rankings .full-table th:nth-child(4),
+  .full-rankings .full-table td:nth-child(4){width:34% !important}
+
+  .full-rankings .full-table th,
+  .full-rankings .full-table td{
+    padding-left:7px !important;
+    padding-right:7px !important;
+  }
+
+  .full-rankings .full-table td:nth-child(2){
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+}
+
+/* Keep the existing mobile/tablet scrolling behaviour below desktop. */
+@media (max-width:700px){
+  .country-genre-value{font-size:16px !important}
+}
+</style>
+
+
+<style id="v38-full-data-access">
+.full-data-access{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  margin:22px 0 4px;
+  padding:17px 20px;
+  background:#0b1d22;
+  border:1px solid #29464e;
+  border-left:4px solid #00b96b;
+  color:#f5fffb;
+}
+.full-data-copy{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  min-width:0;
+}
+.full-data-kicker{
+  flex:0 0 auto;
+  padding:7px 10px;
+  background:#00b96b;
+  color:#0b1d22;
+  font-family:"Barlow Condensed",sans-serif;
+  font-size:12px;
+  line-height:1;
+  font-weight:800;
+}
+.full-data-copy strong{
+  display:block;
+  margin:0 0 3px;
+  color:#fff;
+  font-family:"Barlow Condensed",sans-serif;
+  font-size:18px;
+  line-height:1.1;
+  font-weight:800;
+}
+.full-data-copy p{
+  margin:0;
+  color:#9db0a9;
+  font-size:12px;
+  line-height:1.45;
+}
+.full-data-button{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:0 14px;
+  border:1px solid #00b96b;
+  background:#00b96b;
+  color:#07171a !important;
+  font-family:"Barlow Condensed",sans-serif;
+  font-size:13px;
+  font-weight:800;
+  text-decoration:none !important;
+  transition:background .16s ease,border-color .16s ease,transform .16s ease;
+}
+.full-data-button:hover{
+  background:#00d99a;
+  border-color:#00d99a;
+  transform:translateY(-1px);
+}
+.full-data-button:focus-visible{
+  outline:3px solid rgba(0,185,107,.22);
+  outline-offset:3px;
+}
+@media (max-width:700px){
+  .full-data-access{
+    align-items:stretch;
+    flex-direction:column;
+    gap:13px;
+    padding:15px;
+  }
+  .full-data-copy{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:9px;
+  }
+  .full-data-button{
+    width:100%;
+  }
+}
+</style>
+
 </head>
 <body>
 <main class="page">
@@ -3068,6 +3272,12 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
     </div>
 <div class="full-table-scroll">
       <table class="full-table">
+        <colgroup class="full-table-cols">
+          <col class="col-rank">
+          <col class="col-country">
+          <col class="col-box">
+          <col class="col-films">
+        </colgroup>
         <thead>
           <tr>
             <th scope="col">Rank</th>
@@ -3118,6 +3328,21 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
     <p>The source dataset covers 3,254 American films released from 2010 through 2026 across 88 credited production countries and territories, including the U.S. This interactive displays the 87 countries and territories outside the U.S. that appear in the production-country data. Six films are missing production-country data, and genre labels are available for 3,252 films. The 2026 data currently runs through August.</p>
     <p class="source-line"><strong>Sources:</strong> <a href="https://en.wikipedia.org/wiki/Lists_of_American_films" target="_blank" rel="noopener">Wikipedia</a> for annual film seed lists, <a href="https://www.omdbapi.com/" target="_blank" rel="noopener">OMDb</a> for production-country details, <a href="https://www.boxofficemojo.com/" target="_blank" rel="noopener">Box Office Mojo</a> for worldwide box office and genre labels, and <a href="https://www.imdb.com/" target="_blank" rel="noopener">IMDb</a> identifiers and supporting metadata.</p>
   </section>
+
+  <div class="full-data-access" aria-label="Full dataset">
+    <div class="full-data-copy">
+      <span class="full-data-kicker">Full data</span>
+      <div>
+        <strong>Explore the complete dataset</strong>
+        <p>View the full 2010–2026 data behind the rankings in Google Sheets.</p>
+      </div>
+    </div>
+    <a class="full-data-button"
+       href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5RWhenS_u4mRRPIqvxbsRMkizasWV90St7m39T0qfwCFsHxUt5KV0ywVt-ZLAsSVmd5p_Rc-PW3WI/pubhtml"
+       target="_blank"
+       rel="noopener">View full data ↗</a>
+  </div>
+
   <div class="section-break section-break-final" aria-label="Return to key sections">
     <span class="section-break-line"></span>
     <a class="section-break-menu section-break-menu-final" href="#key-sections">↑ Back to key sections</a>
