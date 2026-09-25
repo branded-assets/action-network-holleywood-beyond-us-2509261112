@@ -3722,6 +3722,142 @@ body{
 }
 </style>
 
+
+<style id="v51-compact-country-growth">
+/* Compact CMS treatment: keep the comparison and chart side by side on desktop,
+   even inside Action Network's narrower article column. */
+.country-growth-head{
+  align-items:center !important;
+  padding:16px 22px 12px !important;
+  gap:14px !important;
+}
+
+.country-growth-head h3{
+  font-size:21px !important;
+}
+
+.country-growth-toggle{
+  min-width:240px !important;
+  flex:0 0 240px !important;
+}
+
+.country-growth-body{
+  grid-template-columns:minmax(230px,.72fr) minmax(0,1.55fr) !important;
+  gap:14px !important;
+  padding:0 22px 14px !important;
+}
+
+.country-growth-summary{
+  padding:16px 18px !important;
+}
+
+.country-growth-change{
+  margin-top:5px !important;
+  font-size:clamp(34px,4vw,48px) !important;
+}
+
+.country-growth-change-label{
+  margin-top:4px !important;
+  font-size:12.5px !important;
+}
+
+/* Keep early-vs-recent values on one clean line. */
+.country-growth-periods{
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) !important;
+  gap:8px !important;
+  margin-top:14px !important;
+  padding-top:12px !important;
+}
+
+.country-growth-periods div{
+  min-width:0 !important;
+}
+
+.country-growth-periods span{
+  font-size:10px !important;
+  line-height:1.2 !important;
+}
+
+.country-growth-periods strong{
+  margin-top:3px !important;
+  font-size:16px !important;
+  white-space:nowrap !important;
+}
+
+.country-growth-periods small{
+  display:block;
+  margin-top:3px;
+  color:#657f77;
+  font-family:var(--an-display);
+  font-size:9.5px;
+  line-height:1.15;
+  font-weight:650;
+  white-space:nowrap;
+}
+
+.country-growth-vs{
+  align-self:center;
+  color:#8fa59e !important;
+  font-family:var(--an-display);
+  font-size:11px !important;
+  line-height:1;
+  font-weight:700;
+  text-transform:none;
+}
+
+.country-growth-chart-card{
+  padding:12px 14px 8px !important;
+}
+
+.country-growth-foot{
+  padding:8px 22px 10px !important;
+}
+
+/* AN desktop article columns can be fairly narrow. Keep the compact two-column
+   arrangement until we reach a genuinely mobile width. */
+@media (max-width:620px){
+  .country-growth-head{
+    flex-direction:column !important;
+    align-items:stretch !important;
+    padding:15px 15px 11px !important;
+  }
+
+  .country-growth-toggle{
+    width:100% !important;
+    min-width:0 !important;
+    flex:0 0 auto !important;
+  }
+
+  .country-growth-body{
+    grid-template-columns:1fr !important;
+    padding:0 15px 13px !important;
+  }
+
+  .country-growth-foot{
+    padding:8px 15px 10px !important;
+  }
+}
+
+/* On phones, the comparison still stays on one row; the type and spacing tighten. */
+@media (max-width:420px){
+  .country-growth-periods{
+    gap:5px !important;
+  }
+  .country-growth-periods span{
+    font-size:9px !important;
+  }
+  .country-growth-periods strong{
+    font-size:14px !important;
+  }
+  .country-growth-periods small{
+    font-size:8.5px !important;
+  }
+  .country-growth-vs{
+    font-size:10px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <main class="page">
@@ -4152,7 +4288,7 @@ body{
       <div class="country-growth-head">
         <div>
           <h3>Change Over Time</h3>
-          <p>Compare the early 2010s with the most recent three complete years.</p>
+          <p>See how the recent three-year average compares with the early 2010s.</p>
         </div>
         <div class="country-growth-toggle" role="tablist" aria-label="Choose growth measure">
           <button type="button" class="active" id="growthBoxToggle" role="tab" aria-selected="true">Box Office</button>
@@ -4168,13 +4304,15 @@ body{
 
           <div class="country-growth-periods">
             <div>
-              <span>2010–2012 avg</span>
+              <span>Early 2010s average</span>
               <strong id="growthEarlyValue">$0</strong>
+              <small>2010–2012</small>
             </div>
-            <span class="country-growth-arrow" aria-hidden="true">→</span>
+            <span class="country-growth-vs" aria-hidden="true">vs</span>
             <div>
-              <span>2023–2025 avg</span>
+              <span>Recent 3-year average</span>
               <strong id="growthRecentValue">$0</strong>
+              <small>2023–2025</small>
             </div>
           </div>
         </div>
@@ -4503,7 +4641,7 @@ function renderSpotlightGrowth(){
   const unit=document.getElementById('growthChartUnit');
 
   metricLabel.textContent=key==='box'?'Allocated worldwide box office':'Credited American films';
-  changeLabel.textContent=key==='box'?'Change in average annual box office':'Change in average annual film count';
+  changeLabel.textContent=key==='box'?'Compared with the early 2010s':'Compared with the early 2010s';
   unit.textContent=key==='box'?'Allocated box office':'Credited films';
   document.getElementById('growthEarlyValue').textContent=fmtGrowthValue(early,key);
   document.getElementById('growthRecentValue').textContent=fmtGrowthValue(recent,key);
@@ -4513,6 +4651,11 @@ function renderSpotlightGrowth(){
     const pct=((recent-early)/early)*100;
     const rounded=Math.round(Math.abs(pct));
     change.textContent=(pct>0?'+':pct<0?'−':'')+rounded+'%';
+    changeLabel.textContent=pct>0
+      ? 'Higher than the early 2010s'
+      : pct<0
+        ? 'Lower than the early 2010s'
+        : 'In line with the early 2010s';
     if(pct<0) change.classList.add('is-negative');
     if(Math.abs(pct)<.5) change.classList.add('is-flat');
   }else if(recent>0){
