@@ -3858,6 +3858,48 @@ body{
 }
 </style>
 
+
+<style id="v52-fix-growth-toggle-height">
+/* Fix inherited narrow-screen flex rules from the earlier growth module.
+   Keep the tabs compact on Action Network's desktop article column. */
+.country-growth-head{
+  flex-direction:row !important;
+  align-items:center !important;
+}
+
+.country-growth-toggle{
+  width:240px !important;
+  min-width:240px !important;
+  flex:none !important;
+  height:38px !important;
+  min-height:38px !important;
+  align-self:center !important;
+}
+
+.country-growth-toggle button{
+  height:38px !important;
+  min-height:38px !important;
+  padding:6px 10px !important;
+}
+
+/* Only stack the header/tabs once the iframe is genuinely phone-width. */
+@media (max-width:620px){
+  .country-growth-head{
+    flex-direction:column !important;
+    align-items:stretch !important;
+  }
+
+  .country-growth-toggle{
+    width:100% !important;
+    min-width:0 !important;
+    height:38px !important;
+    min-height:38px !important;
+    flex:none !important;
+    align-self:stretch !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <main class="page">
