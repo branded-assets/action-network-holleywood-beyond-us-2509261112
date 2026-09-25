@@ -2897,6 +2897,93 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
 }
 </style>
 
+
+<style id="v41-map-cleanup">
+/* Keep the map itself visually clean: only the centered heatmap scale sits above it. */
+.hero-map-body .map-meta-scale-only{
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  padding:12px 16px 10px !important;
+}
+
+.hero-map-body .map-meta-scale-only .legend{
+  width:min(620px,78%) !important;
+  display:grid !important;
+  grid-template-columns:auto minmax(160px,1fr) auto !important;
+  align-items:center !important;
+  gap:12px !important;
+  color:#a9bbb6 !important;
+  text-align:center !important;
+}
+
+.hero-map-body .map-meta-scale-only .legend-ramp{
+  width:100% !important;
+  max-width:none !important;
+}
+
+/* Compact context box beneath the map rather than explanatory copy above it. */
+.hero-map-foot-context{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  gap:0 !important;
+  padding:0 !important;
+  border-top:1px solid #274149 !important;
+}
+
+.hero-map-scope{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px 9px;
+  border-bottom:1px solid #203840;
+  background:#0c2025;
+}
+
+.hero-map-scope-label{
+  flex:0 0 auto;
+  padding:5px 8px;
+  background:#00b96b;
+  color:#07171a;
+  font-family:var(--an-display);
+  font-size:10px;
+  line-height:1;
+  font-weight:850;
+}
+
+.hero-map-scope-copy{
+  color:#a9bbb6;
+  font-family:var(--an-serif);
+  font-size:10.5px;
+  line-height:1.4;
+}
+
+.hero-map-foot-context .hero-map-foot-main{
+  padding:9px 14px 10px;
+}
+
+@media (max-width:700px){
+  .hero-map-body .map-meta-scale-only{
+    padding:10px 10px 8px !important;
+  }
+  .hero-map-body .map-meta-scale-only .legend{
+    width:100% !important;
+    grid-template-columns:auto minmax(110px,1fr) auto !important;
+    gap:8px !important;
+  }
+  .hero-map-scope{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:6px;
+    padding:9px 10px 8px;
+  }
+  .hero-map-foot-context .hero-map-foot-main{
+    padding:8px 10px 9px;
+  }
+}
+</style>
+
 </head>
 <body>
 <main class="page">
@@ -2912,12 +2999,12 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
     </div>
     <div class="hero-map-body">
       <div class="hero-map-frame">
-        <div class="map-meta">
-          <div>
-            <div class="map-title" id="heroMapTitle">Allocated worldwide box office among countries outside the U.S.</div>
-            <div class="map-subtitle" id="heroMapSubtitle">2010-2026 · American films · international countries only</div>
+        <div class="map-meta map-meta-scale-only">
+          <div class="legend" aria-label="Allocated worldwide box office heatmap scale">
+            <span>Lower</span>
+            <span class="legend-ramp" aria-hidden="true"></span>
+            <span>Higher</span>
           </div>
-          <div class="legend" aria-label="Map color scale"><span>Lower</span><span class="legend-ramp" aria-hidden="true"></span><span>Higher</span></div>
         </div>
         <div class="map-wrap">
           <svg id="heroWorldMap" viewBox="0 0 1200 520" role="img" aria-label="World map showing production countries outside the United States">
@@ -3107,10 +3194,15 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
         </div>
 
 
-        <div class="hero-map-foot">
-          <div class="hero-map-foot-main"><span class="hero-foot-diamond">◆</span><span id="heroMapStatus"><strong>Hover or tap a country</strong> to see its rank outside the U.S., allocated box office and credited films.</span></div>
-
-
+        <div class="hero-map-foot hero-map-foot-context">
+          <div class="hero-map-scope">
+            <span class="hero-map-scope-label">How rankings work</span>
+            <span class="hero-map-scope-copy">Overall rankings combine allocated worldwide box office (50%) and credited film production (50%) for American films released from 2010 to 2026. Map shading reflects box office only.</span>
+          </div>
+          <div class="hero-map-foot-main">
+            <span class="hero-foot-diamond">◆</span>
+            <span id="heroMapStatus"><strong>Hover or tap a country</strong> to see its rank outside the U.S., allocated box office and credited films.</span>
+          </div>
         </div>
       </div>
     </div>
