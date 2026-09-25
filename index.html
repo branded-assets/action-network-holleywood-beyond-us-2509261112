@@ -2840,6 +2840,63 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
 }
 </style>
 
+
+<style id="v40-clean-section-navigation">
+/* Section separators should read as navigation, not as a two-option toggle. */
+.section-break-back{
+  display:grid !important;
+  grid-template-columns:minmax(40px,1fr) auto minmax(40px,1fr) !important;
+  align-items:center !important;
+  gap:12px !important;
+  margin:10px 0 12px !important;
+}
+
+.section-break-back .section-break-line{
+  display:block !important;
+  height:1px !important;
+  background:repeating-linear-gradient(
+    90deg,
+    rgba(0,185,107,.52) 0 5px,
+    transparent 5px 10px
+  ) !important;
+}
+
+.section-break-back .section-break-menu{
+  grid-column:auto !important;
+  justify-content:center !important;
+  min-height:34px !important;
+  padding:7px 14px !important;
+  background:#f6fbf8 !important;
+  border:1px solid rgba(0,185,107,.34) !important;
+  color:#007a53 !important;
+}
+
+.section-break-back .section-break-menu:hover{
+  background:#eaf8f1 !important;
+  border-color:#00b96b !important;
+}
+
+/* Key Findings follows Key Sections directly, so keep that transition tight. */
+.key-sections + .key-findings-section{
+  margin-top:10px !important;
+}
+
+/* Old "next section" pills are no longer used. */
+.section-break-next{
+  display:none !important;
+}
+
+@media (max-width:760px){
+  .section-break-back{
+    grid-template-columns:minmax(18px,1fr) auto minmax(18px,1fr) !important;
+    gap:8px !important;
+  }
+  .section-break-back .section-break-line{
+    display:block !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <main class="page">
@@ -3071,12 +3128,6 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
   </nav>
 
 
-  <div class="section-break" aria-label="Continue to key findings">
-    <span class="section-break-line"></span>
-    <a class="section-break-next" href="#key-findings"><span>02</span> Key findings</a>
-    <a class="section-break-menu" href="#key-sections">↑ Key sections</a>
-    <span class="section-break-line"></span>
-  </div>
   <section class="key-findings-section" id="key-findings" aria-labelledby="keyFindingsTitle">
     <div class="key-findings-head">
       <div class="key-findings-kicker">Key findings</div>
@@ -3148,10 +3199,9 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
   </section>
 
 
-  <div class="section-break" aria-label="Continue to rankings explorer">
+  <div class="section-break section-break-back" aria-label="Return to key sections">
     <span class="section-break-line"></span>
-    <a class="section-break-next" href="#explore-rankings"><span>03</span> Explore rankings</a>
-    <a class="section-break-menu" href="#key-sections">↑ Key sections</a>
+    <a class="section-break-menu" href="#key-sections">↑ Back to key sections</a>
     <span class="section-break-line"></span>
   </div>
 
@@ -3233,10 +3283,9 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
   </section>
 
 
-  <div class="section-break" aria-label="Continue to country spotlight">
+  <div class="section-break section-break-back" aria-label="Return to key sections">
     <span class="section-break-line"></span>
-    <a class="section-break-next" href="#countrySpotlight"><span>04</span> Country spotlight</a>
-    <a class="section-break-menu" href="#key-sections">↑ Key sections</a>
+    <a class="section-break-menu" href="#key-sections">↑ Back to key sections</a>
     <span class="section-break-line"></span>
   </div>
 
@@ -3289,10 +3338,9 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
   </section>
 
 
-  <div class="section-break" aria-label="Continue to full rankings">
+  <div class="section-break section-break-back" aria-label="Return to key sections">
     <span class="section-break-line"></span>
-    <a class="section-break-next" href="#full-rankings"><span>05</span> Full rankings</a>
-    <a class="section-break-menu" href="#key-sections">↑ Key sections</a>
+    <a class="section-break-menu" href="#key-sections">↑ Back to key sections</a>
     <span class="section-break-line"></span>
   </div>
 
@@ -3375,10 +3423,9 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
 
 
 
-  <div class="section-break" aria-label="Continue to methodology">
+  <div class="section-break section-break-back" aria-label="Return to key sections">
     <span class="section-break-line"></span>
-    <a class="section-break-next" href="#methodology"><span>06</span> Methodology</a>
-    <a class="section-break-menu" href="#key-sections">↑ Key sections</a>
+    <a class="section-break-menu" href="#key-sections">↑ Back to key sections</a>
     <span class="section-break-line"></span>
   </div>
 
@@ -3416,7 +3463,7 @@ html.an-motion-enabled .hero-map-card.an-map-seen .hero-rank-marker:nth-child(5)
        rel="noopener">View full data ↗</a>
   </div>
 
-  <div class="section-break section-break-final" aria-label="Return to key sections">
+  <div class="section-break section-break-back section-break-final" aria-label="Return to key sections">
     <span class="section-break-line"></span>
     <a class="section-break-menu section-break-menu-final" href="#key-sections">↑ Back to key sections</a>
     <span class="section-break-line"></span>
